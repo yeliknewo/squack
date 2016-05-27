@@ -2,13 +2,13 @@
 name = "squack"
 version = "0.2.0"
 dependencies = [
- "actule 0.3.0 (git+https://github.com/yeliknewo/actule.git)",
+ "actule 0.3.1 (git+https://github.com/yeliknewo/actule.git)",
 ]
 
 [[package]]
 name = "actule"
-version = "0.3.0"
-source = "git+https://github.com/yeliknewo/actule.git#1b296ac7d506bba619ed6582d62bb5f55332fba5"
+version = "0.3.1"
+source = "git+https://github.com/yeliknewo/actule.git#672843843d96a22320a42e1db05534c9205c668d"
 dependencies = [
  "id_alloc 0.4.3 (git+https://github.com/yeliknewo/id_alloc.git)",
  "piston_window 0.47.0 (registry+https://github.com/rust-lang/crates.io-index)",
