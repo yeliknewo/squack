@@ -1,6 +1,6 @@
 [root]
 name = "squack"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "actule 0.3.0 (git+https://github.com/yeliknewo/actule.git)",
 ]
