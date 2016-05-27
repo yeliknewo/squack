@@ -4,4 +4,4 @@ version = "0.3.0"
 authors = ["Kiley Owen <yelikdev@gmail.com>"]
 
 [dependencies]
-actule = {git = "https://github.com/yeliknewo/actule.git", version = "0.3.1"}
+actule = {git = "https://github.com/yeliknewo/actule.git", version = "0.4.2"}

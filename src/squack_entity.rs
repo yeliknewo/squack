@@ -1,14 +1,20 @@
-use actule::*;
+use actule::actule::*;
+use actule::id_alloc::*;
 use utils::*;
+use components::*;
 
 pub struct SquackEntity {
     id: Id,
     renderable: Option<Box<Renderable>>,
     transform: Option<Box<Transform>>,
     name: Option<Box<Name>>,
+    hitbox: Option<Box<Hitbox>>,
+    hit_watcher: Option<Box<HitWatcher>>,
 }
 
 impl_component_for_entity!(SquackEntity, name, Name, set_option_name, set_name, with_name, get_name, get_mut_name, take_name, give_name);
+impl_component_for_entity!(SquackEntity, hitbox, Hitbox, set_option_hitbox, set_hitbox, with_hitbox, get_hitbox, get_mut_hitbox, take_hitbox, give_hitbox);
+impl_component_for_entity!(SquackEntity, hit_watcher, HitWatcher, set_option_hit_watcher, set_hit_watcher, with_hit_watcher, get_hit_watcher, get_mut_hit_watcher, take_hit_watcher, give_hit_watcher);
 
 impl SquackEntity {
     pub fn new(id: Id) -> SquackEntity {
@@ -17,6 +23,8 @@ impl SquackEntity {
             renderable: None,
             transform: None,
             name: None,
+            hitbox: None,
+            hit_watcher: None,
         }
     }
 
@@ -105,10 +113,14 @@ impl Entity<Id, SquackEntity> for SquackEntity {
             transform.tick(&mut self.renderable.as_mut().expect("Renderable was none after being some?"));
             self.give_transform(transform);
         }
+        if self.hit_watcher.is_some() {
+            self.get_mut_hit_watcher().unwrap().tick();
+        }
     }
 
     #[inline]
     fn is_tick(&self) -> bool {
-        self.transform.is_some() && self.renderable.is_some()
+        (self.transform.is_some() && self.renderable.is_some()) ||
+        self.hit_watcher.is_some()
     }
 }
