@@ -7,6 +7,7 @@ use actule::piston_window::*;
 use actule::id_alloc::*;
 use actule::actule::*;
 use actule::nalgebra::{Vector1, Vector2};
+use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2, Cuboid};
 
 mod utils;
 mod squack_entity;
@@ -15,6 +16,7 @@ mod components;
 
 use utils::*;
 use components::*;
+use prefabs::*;
 
 fn main() {
     let mut window: PistonWindow = {
@@ -47,32 +49,63 @@ fn main() {
     {
         let mut world = game.get_mut_world();
 
+        add_watcher(&mut manager, &mut world);
+
         {
             let id = manager.alloc().expect("Manager ran out of ids");
-                // entity.set_renderable(Renderable::new(0, vec!([0.0, 0.0], [100.0, 100.0], [50.0, 100.0]), [1.0, 0.0, 0.0, 1.0]));
-                // entity.set_transform(Transform::new([100.0, 0.0], 0.0, [1.0, 1.0]));
-                // entity.get_mut_transform().unwrap().set_position([0.0, 100.0]);
-            world.add_entity(SEntity::new(id)
-                .with_renderable(Renderable::new(
-                    0,
-                    vec!(
-                        Vector2::new(0.0, 0.0),
-                        Vector2::new(1.0, 0.0),
-                        Vector2::new(1.0, 1.0)
-                    ),
-                    [1.0, 0.0, 0.0, 1.0]
-                ))
-                .with_transform(Transform::new(
+
+            let entity = SEntity::new(id)
+            .with_renderable(Renderable::new(
+                0,
+                vec!(
                     Vector2::new(0.0, 0.0),
-                    Vector1::new(0.0),
-                    Vector2::new(1.0, 1.0)
-                ))
-                .with_hitbox(Hitbox::new(
-                    
-                ))
-            );
+                    Vector2::new(100.0, 0.0),
+                    Vector2::new(100.0, 100.0),
+                    Vector2::new(0.0, 100.0)
+                ),
+                [1.0, 0.0, 0.0, 1.0]
+            ))
+            .with_transform(Transform::new(
+                Vector2::new(0.0, 0.0),
+                Vector1::new(0.0),
+                Vector2::new(1.0, 1.0)
+            ))
+            .with_hitbox(Hitbox::new(
+                ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
+            ));
+
+            world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
+
+            world.add_entity(entity);
         }
 
+        {
+            let id = manager.alloc().expect("Manager ran out of ids");
+
+            let entity = SEntity::new(id)
+            .with_renderable(Renderable::new(
+                0,
+                vec!(
+                    Vector2::new(0.0, 0.0),
+                    Vector2::new(100.0, 0.0),
+                    Vector2::new(100.0, 100.0),
+                    Vector2::new(0.0, 100.0)
+                ),
+                [1.0, 0.0, 0.0, 1.0]
+            ))
+            .with_transform(Transform::new(
+                Vector2::new(101.0, 0.0),
+                Vector1::new(0.0),
+                Vector2::new(1.0, 1.0)
+            ))
+            .with_hitbox(Hitbox::new(
+                ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
+            ));
+
+            world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
+
+            world.add_entity(entity);
+        }
     }
 
     game.run(&mut manager, &mut window);

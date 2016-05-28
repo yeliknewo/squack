@@ -1,6 +1,5 @@
 
-use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2, Cuboid};
-use actule::nalgebra::{Vector2};
+use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2};
 use actule::actule::*;
 
 pub struct Hitbox {
@@ -8,9 +7,9 @@ pub struct Hitbox {
 }
 
 impl Hitbox {
-    pub fn new() -> Hitbox {
+    pub fn new(shape_handle: ShapeHandle2<Coord>) -> Hitbox {
         Hitbox {
-            shape_handle: ShapeHandle2::new(Cuboid::new(Vector2::new(1.0, 1.0))),
+            shape_handle: shape_handle,
         }
     }
 
