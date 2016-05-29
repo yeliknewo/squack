@@ -1,19 +1,19 @@
 [root]
 name = "squack"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
- "actule 0.4.2 (git+https://github.com/yeliknewo/actule.git)",
+ "actule 0.4.3 (git+https://github.com/yeliknewo/actule.git)",
 ]
 
 [[package]]
 name = "actule"
-version = "0.4.2"
-source = "git+https://github.com/yeliknewo/actule.git#5071e88fbd94f391a2fb7d01304e4a35bc05a652"
+version = "0.4.3"
+source = "git+https://github.com/yeliknewo/actule.git#bb20be0627b586855fd0420c21727a81b5de39f5"
 dependencies = [
  "id_alloc 0.4.3 (git+https://github.com/yeliknewo/id_alloc.git)",
  "nalgebra 0.8.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "ncollide 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "piston_window 0.47.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "piston_window 0.47.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -57,7 +57,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "cgl"
-version = "0.1.4"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "gleam 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -279,7 +279,7 @@ version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "android_glue 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "cgl 0.1.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cgl 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "cocoa 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "core-foundation 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "core-graphics 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -714,7 +714,7 @@ dependencies = [
 
 [[package]]
 name = "piston_window"
-version = "0.47.0"
+version = "0.47.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "gfx 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
