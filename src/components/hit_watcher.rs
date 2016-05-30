@@ -7,7 +7,7 @@ use actule::actule::*;
 use utils::*;
 
 pub struct HitWatcher {
-    collision_world: CollisionWorld2<f64, PhantomData<Id>>,
+    collision_world: CollisionWorld2<Coord, PhantomData<Id>>,
     query_type: GeometricQueryType<Coord>,
     collision_groups: CollisionGroups,
 }
@@ -35,9 +35,10 @@ impl HitWatcher {
         );
     }
 
-    pub fn tick(&mut self) {
+    pub fn tick(&mut self, world: &mut SWorld) {
         self.collision_world.update();
         for contact in self.collision_world.contacts() {
+            world.get_mut_entity_by_id(contact.0.uid).expect("Collison object was not an entity");
             println!("P1: ({},{}), P2: ({},{})", contact.0.position.translation.x, contact.0.position.translation.y, contact.1.position.translation.x, contact.1.position.translation.y);
         }
     }

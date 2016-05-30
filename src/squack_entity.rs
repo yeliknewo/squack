@@ -1,4 +1,5 @@
 use actule::actule::*;
+
 use utils::*;
 use components::*;
 
@@ -9,11 +10,14 @@ pub struct SquackEntity {
     name: Option<Box<Name>>,
     hitbox: Option<Box<Hitbox>>,
     hit_watcher: Option<Box<HitWatcher>>,
+    physics_obj: Option<Box<PhysicsObj>>,
 }
 
 impl_component_for_entity!(SquackEntity, name, Name, set_option_name, set_name, with_name, get_name, get_mut_name, take_name, give_name);
 impl_component_for_entity!(SquackEntity, hitbox, Hitbox, set_option_hitbox, set_hitbox, with_hitbox, get_hitbox, get_mut_hitbox, take_hitbox, give_hitbox);
 impl_component_for_entity!(SquackEntity, hit_watcher, HitWatcher, set_option_hit_watcher, set_hit_watcher, with_hit_watcher, get_hit_watcher, get_mut_hit_watcher, take_hit_watcher, give_hit_watcher);
+impl_component_for_entity!(SquackEntity, physics_obj, PhysicsObj, set_option_physics_obj, set_physics_obj, with_physics_obj, get_physics_obj, get_mut_physics_obj, take_physics_obj, give_physics_obj);
+
 
 impl SquackEntity {
     pub fn new(id: Id) -> SquackEntity {
@@ -24,6 +28,7 @@ impl SquackEntity {
             name: None,
             hitbox: None,
             hit_watcher: None,
+            physics_obj: None,
         }
     }
 
@@ -113,7 +118,7 @@ impl Entity<Id, SquackEntity> for SquackEntity {
             self.give_transform(transform);
         }
         if self.hit_watcher.is_some() {
-            self.get_mut_hit_watcher().unwrap().tick();
+            self.get_mut_hit_watcher().unwrap().tick(world);
         }
     }
 

@@ -2,13 +2,13 @@
 name = "squack"
 version = "0.4.0"
 dependencies = [
- "actule 0.4.3 (git+https://github.com/yeliknewo/actule.git)",
+ "actule 0.4.5 (git+https://github.com/yeliknewo/actule.git)",
 ]
 
 [[package]]
 name = "actule"
-version = "0.4.3"
-source = "git+https://github.com/yeliknewo/actule.git#bb20be0627b586855fd0420c21727a81b5de39f5"
+version = "0.4.5"
+source = "git+https://github.com/yeliknewo/actule.git#f3f6b18a093278c97221ed291505f79a833f940d"
 dependencies = [
  "id_alloc 0.4.3 (git+https://github.com/yeliknewo/id_alloc.git)",
  "nalgebra 0.8.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -104,7 +104,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "core-foundation 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.11 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 0.7.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 0.7.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -835,7 +835,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "serde"
-version = "0.7.5"
+version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
