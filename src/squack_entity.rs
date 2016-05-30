@@ -106,7 +106,7 @@ impl Entity<Id, SquackEntity> for SquackEntity {
         self.transform.as_mut()
     }
 
-    fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld) {
+    fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld, keyboard: &Keyboard) {
         if self.transform.is_some() && self.renderable.is_some() {
             let mut transform = self.take_transform().expect("Transform was none after being some?");
             transform.tick(&mut self.renderable.as_mut().expect("Renderable was none after being some?"));
