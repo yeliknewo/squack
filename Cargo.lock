@@ -2,13 +2,13 @@
 name = "squack"
 version = "0.4.0"
 dependencies = [
- "actule 0.4.5 (git+https://github.com/yeliknewo/actule.git)",
+ "actule 0.4.6 (git+https://github.com/yeliknewo/actule.git)",
 ]
 
 [[package]]
 name = "actule"
-version = "0.4.5"
-source = "git+https://github.com/yeliknewo/actule.git#f3f6b18a093278c97221ed291505f79a833f940d"
+version = "0.4.6"
+source = "git+https://github.com/yeliknewo/actule.git#c57e52dabdafd9d17f1885e2dbeac80fa929cb3a"
 dependencies = [
  "id_alloc 0.4.3 (git+https://github.com/yeliknewo/id_alloc.git)",
  "nalgebra 0.8.2 (registry+https://github.com/rust-lang/crates.io-index)",

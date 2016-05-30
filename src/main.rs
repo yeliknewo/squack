@@ -72,6 +72,11 @@ fn main() {
             ))
             .with_hitbox(Hitbox::new(
                 ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
+            ))
+            .with_physics_obj(PhysicsObj::new(
+                1.0,
+                Vector2::new(10.0, 0.0),
+                1.0
             ));
 
             world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
@@ -94,12 +99,17 @@ fn main() {
                 [1.0, 0.0, 0.0, 1.0]
             ))
             .with_transform(Transform::new(
-                Vector2::new(101.0, 0.0),
+                Vector2::new(200.0, 0.0),
                 Vector1::new(0.0),
                 Vector2::new(1.0, 1.0)
             ))
             .with_hitbox(Hitbox::new(
                 ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
+            ))
+            .with_physics_obj(PhysicsObj::new(
+                1.0,
+                Vector2::new(-10.0, 0.0),
+                1.0
             ));
 
             world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
