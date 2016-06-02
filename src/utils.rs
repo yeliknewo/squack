@@ -7,5 +7,6 @@ pub type Id = usize;
 pub type SEntity = SquackEntity;
 pub type SWorld = World<Id, SEntity>;
 pub type SNode = Node<Id>;
+pub type Mass = f64;
 
 pub const WATCHER_NAME: &'static str = "Watcher";

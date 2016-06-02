@@ -1,29 +1,36 @@
 use actule::actule::*;
+
 use utils::*;
 use components::*;
 
 pub struct SquackEntity {
     id: Id,
+    tick_layer: Layer,
     renderable: Option<Box<Renderable>>,
     transform: Option<Box<Transform>>,
     name: Option<Box<Name>>,
     hitbox: Option<Box<Hitbox>>,
     hit_watcher: Option<Box<HitWatcher>>,
+    physics_obj: Option<Box<PhysicsObj>>,
 }
 
 impl_component_for_entity!(SquackEntity, name, Name, set_option_name, set_name, with_name, get_name, get_mut_name, take_name, give_name);
 impl_component_for_entity!(SquackEntity, hitbox, Hitbox, set_option_hitbox, set_hitbox, with_hitbox, get_hitbox, get_mut_hitbox, take_hitbox, give_hitbox);
 impl_component_for_entity!(SquackEntity, hit_watcher, HitWatcher, set_option_hit_watcher, set_hit_watcher, with_hit_watcher, get_hit_watcher, get_mut_hit_watcher, take_hit_watcher, give_hit_watcher);
+impl_component_for_entity!(SquackEntity, physics_obj, PhysicsObj, set_option_physics_obj, set_physics_obj, with_physics_obj, get_physics_obj, get_mut_physics_obj, take_physics_obj, give_physics_obj);
+
 
 impl SquackEntity {
-    pub fn new(id: Id) -> SquackEntity {
+    pub fn new(id: Id, tick_layer: Layer) -> SquackEntity {
         SquackEntity {
             id: id,
+            tick_layer: tick_layer,
             renderable: None,
             transform: None,
             name: None,
             hitbox: None,
             hit_watcher: None,
+            physics_obj: None,
         }
     }
 
@@ -87,6 +94,11 @@ impl Entity<Id, SquackEntity> for SquackEntity {
     }
 
     #[inline]
+    fn get_tick_layer(&self) -> Layer {
+        self.tick_layer
+    }
+
+    #[inline]
     fn get_renderable(&self) -> Option<&Box<Renderable>> {
         self.renderable.as_ref()
     }
@@ -107,13 +119,21 @@ impl Entity<Id, SquackEntity> for SquackEntity {
     }
 
     fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld, minput: &Minput) {
+        if self.hit_watcher.is_some() {
+            self.get_mut_hit_watcher().unwrap().tick(world);
+        }
+        if self.physics_obj.is_some() && self.transform.is_some() {
+            let mut transform = self.take_transform().expect("Transform was somehow none");
+            self.get_mut_physics_obj().unwrap().tick(&mut transform, dt);
+            self.give_transform(transform);
+        }
         if self.transform.is_some() && self.renderable.is_some() {
             let mut transform = self.take_transform().expect("Transform was none after being some?");
             transform.tick(&mut self.renderable.as_mut().expect("Renderable was none after being some?"));
             self.give_transform(transform);
         }
-        if self.hit_watcher.is_some() {
-            self.get_mut_hit_watcher().unwrap().tick();
+        if self.hitbox.is_some() && self.transform.is_some() {
+            self.get_hitbox().expect("Hitbox was somehow none").tick(self.get_id(), world, &self.get_transform().expect("Transform was somehow none"));
         }
     }
 
