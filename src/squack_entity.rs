@@ -122,18 +122,20 @@ impl Entity<Id, SquackEntity> for SquackEntity {
         if self.hit_watcher.is_some() {
             self.get_mut_hit_watcher().unwrap().tick(world);
         }
-        if self.physics_obj.is_some() && self.transform.is_some() {
-            let mut transform = self.take_transform().expect("Transform was somehow none");
-            self.get_mut_physics_obj().unwrap().tick(&mut transform, dt);
-            self.give_transform(transform);
-        }
-        if self.transform.is_some() && self.renderable.is_some() {
-            let mut transform = self.take_transform().expect("Transform was none after being some?");
-            transform.tick(&mut self.renderable.as_mut().expect("Renderable was none after being some?"));
-            self.give_transform(transform);
-        }
-        if self.hitbox.is_some() && self.transform.is_some() {
-            self.get_hitbox().expect("Hitbox was somehow none").tick(self.get_id(), world, &self.get_transform().expect("Transform was somehow none"));
+        if self.transform.is_some() {
+            if self.physics_obj.is_some() {
+                let mut transform = self.take_transform().expect("Transform was somehow none");
+                self.get_mut_physics_obj().unwrap().tick(&mut transform, dt);
+                self.give_transform(transform);
+            }
+            if self.renderable.is_some() {
+                let mut transform = self.take_transform().expect("Transform was none after being some?");
+                transform.tick(&mut self.renderable.as_mut().expect("Renderable was none after being some?"));
+                self.give_transform(transform);
+            }
+            if self.hitbox.is_some() {
+                self.get_hitbox().expect("Hitbox was somehow none").tick(self.get_id(), world, &self.get_transform().expect("Transform was somehow none"));
+            }
         }
     }
 

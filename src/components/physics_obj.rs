@@ -13,11 +13,20 @@ pub struct PhysicsObj {
 
 impl PhysicsObj {
     pub fn new(mass: Mass, velocity: Vector2<Coord>, bounciness: f64) -> PhysicsObj {
-        PhysicsObj {
-            mass: mass,
-            i_mass: 1.0 / mass,
-            velocity: velocity,
-            bounciness: bounciness,
+        if mass == 0.0 {
+            PhysicsObj {
+                mass: 0.0,
+                i_mass: 0.0,
+                velocity: velocity,
+                bounciness: bounciness,
+            }
+        } else {
+            PhysicsObj {
+                mass: mass,
+                i_mass: 1.0 / mass,
+                velocity: velocity,
+                bounciness: bounciness,
+            }
         }
     }
 

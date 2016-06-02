@@ -6,8 +6,7 @@ extern crate actule;
 use actule::piston_window::*;
 use actule::id_alloc::*;
 use actule::actule::*;
-use actule::nalgebra::{Vector1, Vector2};
-use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2, Cuboid};
+use actule::nalgebra::{Vector2};
 
 mod utils;
 mod squack_entity;
@@ -15,7 +14,6 @@ mod prefabs;
 mod components;
 
 use utils::*;
-use components::*;
 use prefabs::*;
 
 fn main() {
@@ -51,71 +49,8 @@ fn main() {
 
         add_watcher(&mut manager, &mut world);
 
-        {
-            let id = manager.alloc().expect("Manager ran out of ids");
-
-            let entity = SEntity::new(id, 1)
-            .with_renderable(Renderable::new(
-                0,
-                vec!(
-                    Vector2::new(0.0, 0.0),
-                    Vector2::new(100.0, 0.0),
-                    Vector2::new(100.0, 100.0),
-                    Vector2::new(0.0, 100.0)
-                ),
-                [1.0, 0.0, 0.0, 1.0]
-            ))
-            .with_transform(Transform::new(
-                Vector2::new(0.0, 0.0),
-                Vector1::new(0.0),
-                Vector2::new(1.0, 1.0)
-            ))
-            .with_hitbox(Hitbox::new(
-                ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
-            ))
-            .with_physics_obj(PhysicsObj::new(
-                1.0,
-                Vector2::new(10.0, 0.0),
-                1.0
-            ));
-
-            world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
-
-            world.add_entity(entity);
-        }
-
-        {
-            let id = manager.alloc().expect("Manager ran out of ids");
-
-            let entity = SEntity::new(id, 1)
-            .with_renderable(Renderable::new(
-                0,
-                vec!(
-                    Vector2::new(0.0, 0.0),
-                    Vector2::new(100.0, 0.0),
-                    Vector2::new(100.0, 100.0),
-                    Vector2::new(0.0, 100.0)
-                ),
-                [1.0, 0.0, 0.0, 1.0]
-            ))
-            .with_transform(Transform::new(
-                Vector2::new(200.0, 0.0),
-                Vector1::new(0.0),
-                Vector2::new(1.0, 1.0)
-            ))
-            .with_hitbox(Hitbox::new(
-                ShapeHandle2::new(Cuboid::new(Vector2::new(50.0, 50.0)))
-            ))
-            .with_physics_obj(PhysicsObj::new(
-                1.0,
-                Vector2::new(-10.0, 0.0),
-                1.0
-            ));
-
-            world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
-
-            world.add_entity(entity);
-        }
+        add_ground_at(&mut manager, &mut world, Vector2::new(0.0, 100.0));
+        add_ground_at(&mut manager, &mut world, Vector2::new(100.0, 100.0));
     }
 
     game.run(&mut manager, &mut window);
