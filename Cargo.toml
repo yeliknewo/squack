@@ -1,7 +1,7 @@
 [package]
 name = "squack"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["Kiley Owen <yelikdev@gmail.com>"]
 
 [dependencies]
-actule = {git = "https://github.com/yeliknewo/actule.git", branch = "master", version = "0.4.6"}
+actule = {git = "https://github.com/yeliknewo/actule.git", branch = "layer_tick", version = "0.4.9"}

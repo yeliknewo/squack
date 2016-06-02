@@ -5,6 +5,7 @@ use components::*;
 
 pub struct SquackEntity {
     id: Id,
+    tick_layer: Layer,
     renderable: Option<Box<Renderable>>,
     transform: Option<Box<Transform>>,
     name: Option<Box<Name>>,
@@ -20,9 +21,10 @@ impl_component_for_entity!(SquackEntity, physics_obj, PhysicsObj, set_option_phy
 
 
 impl SquackEntity {
-    pub fn new(id: Id) -> SquackEntity {
+    pub fn new(id: Id, tick_layer: Layer) -> SquackEntity {
         SquackEntity {
             id: id,
+            tick_layer: tick_layer,
             renderable: None,
             transform: None,
             name: None,
@@ -92,6 +94,11 @@ impl Entity<Id, SquackEntity> for SquackEntity {
     }
 
     #[inline]
+    fn get_tick_layer(&self) -> Layer {
+        self.tick_layer
+    }
+
+    #[inline]
     fn get_renderable(&self) -> Option<&Box<Renderable>> {
         self.renderable.as_ref()
     }
@@ -111,7 +118,7 @@ impl Entity<Id, SquackEntity> for SquackEntity {
         self.transform.as_mut()
     }
 
-    fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld, keyboard: &Keyboard) {
+    fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld, minput: &Minput) {
         if self.hit_watcher.is_some() {
             self.get_mut_hit_watcher().unwrap().tick(world);
         }

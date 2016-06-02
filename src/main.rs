@@ -54,7 +54,7 @@ fn main() {
         {
             let id = manager.alloc().expect("Manager ran out of ids");
 
-            let entity = SEntity::new(id)
+            let entity = SEntity::new(id, 1)
             .with_renderable(Renderable::new(
                 0,
                 vec!(
@@ -87,7 +87,7 @@ fn main() {
         {
             let id = manager.alloc().expect("Manager ran out of ids");
 
-            let entity = SEntity::new(id)
+            let entity = SEntity::new(id, 1)
             .with_renderable(Renderable::new(
                 0,
                 vec!(
