@@ -5,17 +5,23 @@ use utils::*;
 
 pub struct Hitbox {
     shape_handle: ShapeHandle2<Coord>,
+    collision_layer: CollisionLayer,
 }
 
 impl Hitbox {
-    pub fn new(shape_handle: ShapeHandle2<Coord>) -> Hitbox {
+    pub fn new(shape_handle: ShapeHandle2<Coord>, collision_layer: CollisionLayer) -> Hitbox {
         Hitbox {
             shape_handle: shape_handle,
+            collision_layer: collision_layer,
         }
     }
 
     pub fn get_shape(&self) -> ShapeHandle2<Coord> {
         self.shape_handle.clone()
+    }
+
+    pub fn get_collision_group(&self) -> CollisionLayer {
+        self.collision_layer
     }
 
     pub fn tick(&self, id: Id, world: &mut SWorld, transform: &Transform) {

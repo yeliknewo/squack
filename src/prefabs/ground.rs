@@ -25,7 +25,8 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                             50.0
                         )
                     )
-                )
+                ),
+                CollisionLayer::Ground
             )
         )
         .with_physics_obj(

@@ -10,3 +10,9 @@ pub type SNode = Node<Id>;
 pub type Mass = f64;
 
 pub const WATCHER_NAME: &'static str = "Watcher";
+
+#[derive(Eq, PartialEq, Hash, Copy, Clone)]
+pub enum CollisionLayer {
+    Ground,
+    Player,
+}
