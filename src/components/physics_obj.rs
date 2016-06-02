@@ -21,6 +21,10 @@ impl PhysicsObj {
         }
     }
 
+    pub fn set_velocity(&mut self, velocity: Vector2<Coord>) {
+        self.velocity = velocity;
+    }
+
     pub fn collision(&mut self, other: &mut Box<PhysicsObj>, contact: Contact<Point2<Coord>>) {
         let rv = other.velocity - self.velocity;
 
