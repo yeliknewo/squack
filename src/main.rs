@@ -43,7 +43,7 @@ fn main() {
 
     window.set_ups(60);
 
-    let mut game = Game::<Id, SEntity>::new();
+    let mut game = Game::<Id, SEntity>::new([0.0, 0.0, 0.0, 1.0]);
 
     let mut manager = Node::new_all();
     {
