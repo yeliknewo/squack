@@ -1,6 +1,6 @@
 use actule::actule::*;
 
-use utils::*;
+use utils::redefines::*;
 use components::*;
 
 pub struct SquackEntity {

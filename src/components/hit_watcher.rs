@@ -1,17 +1,15 @@
 use std::marker::PhantomData;
-use std::collections::{HashMap};
 
 use actule::ncollide::ncollide_pipeline::world::{CollisionGroups, CollisionWorld2, GeometricQueryType};
 use actule::nalgebra::{Isometry2};
 
 use actule::actule::*;
 
-use utils::*;
+use utils::redefines::*;
 
 pub struct HitWatcher {
     collision_world: CollisionWorld2<Coord, PhantomData<Id>>,
     query_type: GeometricQueryType<Coord>,
-    collision_groups: HashMap<CollisionLayer, CollisionGroups>,
 }
 
 impl HitWatcher {
@@ -21,7 +19,6 @@ impl HitWatcher {
         HitWatcher {
             collision_world: CollisionWorld2::new(0.02, true),
             query_type: GeometricQueryType::Contacts(0.0),
-            collision_groups: HashMap::new(),
         }
     }
 
@@ -31,7 +28,7 @@ impl HitWatcher {
             entity.get_id(),
             entity.get_transform().expect("Entity had no transform").get_isometry().clone(),
             hitbox.get_shape(),
-            *self.collision_groups.get(&hitbox.get_collision_layer()).expect("Collision group wasn't there"),
+            hitbox.get_collision_group(),
             self.query_type,
             PhantomData::default()
         );

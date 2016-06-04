@@ -1,18 +1,20 @@
 use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2};
+use actule::ncollide::ncollide_pipeline::world::{CollisionGroups};
 use actule::actule::*;
 
-use utils::*;
+use utils::redefines::*;
+use utils::names::*;
 
 pub struct Hitbox {
     shape_handle: ShapeHandle2<Coord>,
-    collision_layer: CollisionLayer,
+    collision_group: CollisionGroups,
 }
 
 impl Hitbox {
-    pub fn new(shape_handle: ShapeHandle2<Coord>, collision_layer: CollisionLayer) -> Hitbox {
+    pub fn new(shape_handle: ShapeHandle2<Coord>, collision_group: CollisionGroups) -> Hitbox {
         Hitbox {
             shape_handle: shape_handle,
-            collision_layer: collision_layer,
+            collision_group: collision_group,
         }
     }
 
@@ -20,8 +22,8 @@ impl Hitbox {
         self.shape_handle.clone()
     }
 
-    pub fn get_collision_group(&self) -> CollisionLayer {
-        self.collision_layer
+    pub fn get_collision_group(&self) -> CollisionGroups {
+        self.collision_group
     }
 
     pub fn tick(&self, id: Id, world: &mut SWorld, transform: &Transform) {

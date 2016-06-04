@@ -1,6 +1,7 @@
 use actule::actule::*;
 
-use utils::*;
+use utils::redefines::*;
+use utils::names::*;
 use components::*;
 
 pub fn new_watcher(manager: &mut SNode, world: &mut SWorld) -> SEntity {

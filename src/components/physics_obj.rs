@@ -2,7 +2,7 @@ use actule::ncollide::ncollide_geometry::query::{Contact};
 use actule::nalgebra::{Point2, Vector2, dot, Translation};
 use actule::actule::*;
 
-use utils::*;
+use utils::redefines::*;
 
 pub struct PhysicsObj {
     mass: Mass,

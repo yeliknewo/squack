@@ -1,18 +1,10 @@
 use actule::actule::*;
 use actule::id_alloc::*;
 
-use squack_entity::*;
+use core::squack_entity::SquackEntity;
 
 pub type Id = usize;
 pub type SEntity = SquackEntity;
 pub type SWorld = World<Id, SEntity>;
 pub type SNode = Node<Id>;
 pub type Mass = f64;
-
-pub const WATCHER_NAME: &'static str = "Watcher";
-
-#[derive(Eq, PartialEq, Hash, Copy, Clone)]
-pub enum CollisionLayer {
-    Ground,
-    Player,
-}

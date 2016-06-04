@@ -9,11 +9,11 @@ use actule::actule::*;
 use actule::nalgebra::{Vector2};
 
 mod utils;
-mod squack_entity;
 mod prefabs;
 mod components;
+mod core;
 
-use utils::*;
+use utils::redefines::*;
 use prefabs::*;
 
 fn main() {

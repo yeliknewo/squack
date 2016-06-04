@@ -1,8 +1,10 @@
 use actule::actule::*;
 use actule::nalgebra::{Vector1, Vector2};
-use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2, Cuboid};
+use actule::ncollide::ncollide_geometry::shape::{ShapeHandle2, Cuboid2};
 
-use utils::*;
+use utils::redefines::*;
+use utils::names::*;
+use utils::collision_groups::*;
 use components::*;
 
 pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>) -> SEntity {
@@ -19,14 +21,14 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
         .with_hitbox(
             Hitbox::new(
                 ShapeHandle2::new(
-                    Cuboid::new(
+                    Cuboid2::new(
                         Vector2::new(
-                            100.0,
-                            50.0
+                            50.0,
+                            1.0
                         )
                     )
                 ),
-                CollisionLayer::Ground
+                new_collision_group(CollisionLayers::Ground)
             )
         )
         .with_physics_obj(
