@@ -8,10 +8,10 @@ use utils::collision_groups::*;
 use components::*;
 
 
-pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>) -> SEntity {
+pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>) {
     let id = manager.alloc().expect("Manager ran out of ids");
 
-    let entity = SEntity::new(id, 2)
+    let entity = SEntity::new(id, 0)
         .with_transform(
             Transform::new(
                 position,
@@ -48,7 +48,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                     Vector2::new(100.0, 50.0),
                     Vector2::new(0.0, 50.0)
                 ),
-                [1.0, 0.0, 0.0, 1.0]
+                [1.0, 1.0, 0.0, 1.0]
             )
         )
         .with_player(
@@ -57,5 +57,5 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
 
     world.get_mut_entity_by_name(WATCHER_NAME).expect("Watcher was none").get_mut_hit_watcher().expect("Watcher had no hit watcher").add_entity(&entity);
 
-    entity
+    world.add_entity(entity);
 }

@@ -49,8 +49,9 @@ fn main() {
 
         add_watcher(&mut manager, &mut world);
 
-        add_ground_at(&mut manager, &mut world, Vector2::new(0.0, 100.0));
-        add_ground_at(&mut manager, &mut world, Vector2::new(100.0, 100.0));
+        add_ground_at(&mut manager, &mut world, Vector2::new(0.0, 200.0));
+        add_ground_at(&mut manager, &mut world, Vector2::new(200.0, 200.0));
+        new_player(&mut manager, &mut world, Vector2::new(50.0, 50.0));
     }
 
     game.run(&mut manager, &mut window);
