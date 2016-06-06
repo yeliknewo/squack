@@ -24,7 +24,7 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                     Cuboid2::new(
                         Vector2::new(
                             50.0,
-                            1.0
+                            25.0
                         )
                     )
                 ),

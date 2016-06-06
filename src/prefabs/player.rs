@@ -25,16 +25,16 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                     Cuboid2::new(
                         Vector2::new(
                             50.0,
-                            1.0
+                            25.0
                         )
                     )
                 ),
-                new_collision_group(CollisionLayers::Ground)
+                new_collision_group(CollisionLayers::Player)
             )
         )
         .with_physics_obj(
             PhysicsObj::new(
-                0.0,
+                1.0,
                 Vector2::new(0.0, 0.0),
                 1.0
             )

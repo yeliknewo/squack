@@ -2,7 +2,8 @@ use actule::actule::*;
 
 use utils::redefines::*;
 use components::*;
-use actule::nalgebra::{Vector2};
+
+
 pub struct SquackEntity {
     id: Id,
     tick_layer: Layer,
@@ -19,7 +20,7 @@ impl_component_for_entity!(SquackEntity, name, Name, set_option_name, set_name, 
 impl_component_for_entity!(SquackEntity, hitbox, Hitbox, set_option_hitbox, set_hitbox, with_hitbox, get_hitbox, get_mut_hitbox, take_hitbox, give_hitbox);
 impl_component_for_entity!(SquackEntity, hit_watcher, HitWatcher, set_option_hit_watcher, set_hit_watcher, with_hit_watcher, get_hit_watcher, get_mut_hit_watcher, take_hit_watcher, give_hit_watcher);
 impl_component_for_entity!(SquackEntity, physics_obj, PhysicsObj, set_option_physics_obj, set_physics_obj, with_physics_obj, get_physics_obj, get_mut_physics_obj, take_physics_obj, give_physics_obj);
-
+impl_component_for_entity!(SquackEntity, player, Player, set_option_player, set_player, with_player, get_player, get_mut_player, take_player, give_player);
 
 
 impl SquackEntity {
@@ -48,11 +49,6 @@ impl SquackEntity {
     }
 
     #[inline]
-    pub fn set_option_player(&mut self, player: Option<Box<Player>>) {
-        self.player = player;
-    }
-
-    #[inline]
     pub fn set_renderable(&mut self, renderable: Renderable) {
         self.set_option_renderable(Some(Box::new(renderable)));
     }
@@ -62,10 +58,6 @@ impl SquackEntity {
         self.set_option_transform(Some(Box::new(transform)));
     }
 
-    #[inline]
-    pub fn set_player(&mut self, player: Player) {
-        self.set_option_player(Some(Box::new(player)));
-    }
 
     #[inline]
     pub fn with_renderable(mut self, renderable: Renderable) -> SquackEntity {
@@ -80,12 +72,6 @@ impl SquackEntity {
     }
 
     #[inline]
-    pub fn with_player(mut self, player: Player) -> SquackEntity {
-        self.set_player(player);
-        self
-    }
-
-    #[inline]
     pub fn take_renderable(&mut self) -> Option<Box<Renderable>> {
         self.renderable.take()
     }
@@ -93,11 +79,6 @@ impl SquackEntity {
     #[inline]
     pub fn take_transform(&mut self) -> Option<Box<Transform>> {
         self.transform.take()
-    }
-
-    #[inline]
-    pub fn take_player(&mut self) -> Option<Box<Player>> {
-        self.player.take()
     }
 
     #[inline]
@@ -110,41 +91,36 @@ impl SquackEntity {
         self.set_option_transform(Some(transform));
     }
 
-    #[inline]
-    pub fn give_player(&mut self, player: Box<Player>) {
-        self.set_option_player(Some(player));
-    }
-
-    #[inline]
-    pub fn player_pos_update(&mut self) {
-        let mut obj = self.take_physics_obj().expect("physics_obj was none");
-
-        let velocity = obj.clone_velocity();
-
-        let mut x: f64 = 0.0;
-        let mut y: f64 = 0.0;
-
-        let player = self.take_player().unwrap();
-
-        // ""== true" is omitted cus unnecessary
-        if player.get_up() {
-            y += 5.0;
-        }
-        if player.get_down() {
-            y -= 5.0;
-        }
-        if player.get_left() {
-            x += 5.0;
-        }
-        if player.get_right() {
-            x -= 5.0;
-        }
-
-        self.give_player(player);
-        let final_velocity = velocity - Vector2::new(x, y);
-        obj.set_velocity(final_velocity);
-        self.give_physics_obj(obj);
-    }
+    // #[inline]
+    // pub fn player_pos_update(&mut self) {
+    //     let mut obj = self.take_physics_obj().expect("physics_obj was none");
+    //
+    //     let velocity = obj.clone_velocity();
+    //
+    //     let mut x: f64 = 0.0;
+    //     let mut y: f64 = 0.0;
+    //
+    //     let player = self.take_player().unwrap();
+    //
+    //     // ""== true" is omitted cus unnecessary
+    //     if player.get_up() {
+    //         y += 5.0;
+    //     }
+    //     if player.get_down() {
+    //         y -= 5.0;
+    //     }
+    //     if player.get_left() {
+    //         x += 5.0;
+    //     }
+    //     if player.get_right() {
+    //         x -= 5.0;
+    //     }
+    //
+    //     self.give_player(player);
+    //     let final_velocity = velocity - Vector2::new(x, y);
+    //     obj.set_velocity(final_velocity);
+    //     self.give_physics_obj(obj);
+    // }
 }
 
 impl Entity<Id, SquackEntity> for SquackEntity {
@@ -180,18 +156,17 @@ impl Entity<Id, SquackEntity> for SquackEntity {
 
     fn tick(&mut self, dt: f64, manager: &mut SNode, world: &mut SWorld, minput: &Minput) {
         if self.hit_watcher.is_some() {
-            self.get_mut_hit_watcher().unwrap().tick(world);
+            self.get_mut_hit_watcher().expect("Hit watcher was none").tick(world);
         }
-        if self.player.is_some() {
-            let mut player = self.take_player().unwrap();
-            player.tick(minput);
-            self.give_player(player);
-            self.player_pos_update();
+        if self.player.is_some() && self.physics_obj.is_some() {
+            let mut physics_obj = self.take_physics_obj().expect("Physics Obj is none");
+            self.get_mut_player().expect("Player was none").tick(minput, &mut physics_obj);
+            self.give_physics_obj(physics_obj);
         }
         if self.transform.is_some() {
             if self.physics_obj.is_some() {
                 let mut transform = self.take_transform().expect("Transform was somehow none");
-                self.get_mut_physics_obj().unwrap().tick(&mut transform, dt);
+                self.get_mut_physics_obj().expect("Physics obj was none").tick(&mut transform, dt);
                 self.give_transform(transform);
             }
             if self.renderable.is_some() {
