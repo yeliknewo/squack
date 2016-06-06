@@ -78,18 +78,19 @@ impl Player {
 
         let mut velocity = physics_obj.clone_velocity();
 
-        if minput.get_key(Key::D) == KeyState::Pressed {
-            velocity.x += 5.0;
+        if minput.get_key(Key::D) == KeyState::Pressed && velocity.x <= 20.0 {
+            velocity.x += 20.0;
         }
-        if minput.get_key(Key::A) == KeyState::Pressed {
-            velocity.x -= 5.0;
+        if minput.get_key(Key::A) == KeyState::Pressed && velocity.x >= -20.0 {
+            velocity.x -= 20.0;
         }
         if minput.get_key(Key::S) == KeyState::Pressed {
-            velocity.y += 5.0;
+            velocity.y += 2.0;
         }
         if minput.get_key(Key::W) == KeyState::Pressed {
-            velocity -= 5.0;
+            velocity.y -= 5.0;
         }
+        velocity.y += 3.0;
 
         physics_obj.set_velocity(velocity);
 
