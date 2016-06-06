@@ -12,6 +12,7 @@ pub struct SquackEntity {
     hitbox: Option<Box<Hitbox>>,
     hit_watcher: Option<Box<HitWatcher>>,
     physics_obj: Option<Box<PhysicsObj>>,
+    player: Option<Box<Player>>,
 }
 
 impl_component_for_entity!(SquackEntity, name, Name, set_option_name, set_name, with_name, get_name, get_mut_name, take_name, give_name);
@@ -31,6 +32,7 @@ impl SquackEntity {
             hitbox: None,
             hit_watcher: None,
             physics_obj: None,
+            player: None,
         }
     }
 
@@ -45,6 +47,11 @@ impl SquackEntity {
     }
 
     #[inline]
+    pub fn set_option_player(&mut self, player: Option<Box<Player>>) {
+        self.player = player;
+    }
+
+    #[inline]
     pub fn set_renderable(&mut self, renderable: Renderable) {
         self.set_option_renderable(Some(Box::new(renderable)));
     }
@@ -52,6 +59,11 @@ impl SquackEntity {
     #[inline]
     pub fn set_transform(&mut self, transform: Transform) {
         self.set_option_transform(Some(Box::new(transform)));
+    }
+
+    #[inline]
+    pub fn set_player(&mut self, player: Player) {
+        self.set_option_player(Some(Box::new(player)));
     }
 
     #[inline]
@@ -63,6 +75,12 @@ impl SquackEntity {
     #[inline]
     pub fn with_transform(mut self, transform: Transform) -> SquackEntity {
         self.set_transform(transform);
+        self
+    }
+
+    #[inline]
+    pub fn with_player(mut self, player: Player) -> SquackEntity {
+        self.set_player(player);
         self
     }
 
