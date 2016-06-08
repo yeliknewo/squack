@@ -9,7 +9,7 @@ pub fn new_watcher(manager: &mut SNode, world: &mut SWorld) -> SEntity {
 
     let name = Name::new(WATCHER_NAME, id, world);
 
-    SEntity::new(id, 0)
+    SEntity::new(id, 5)
         .with_name(name)
         .with_hit_watcher(HitWatcher::new())
 }

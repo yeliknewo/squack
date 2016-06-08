@@ -166,7 +166,7 @@ impl Entity<Id, SquackEntity> for SquackEntity {
         if self.transform.is_some() {
             if self.physics_obj.is_some() {
                 let mut transform = self.take_transform().expect("Transform was somehow none");
-                self.get_mut_physics_obj().expect("Physics obj was none").tick(&mut transform, dt);
+                self.get_mut_physics_obj().expect("Physics obj was none").tick(world, &mut transform, dt);
                 self.give_transform(transform);
             }
             if self.renderable.is_some() {

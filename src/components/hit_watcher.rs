@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use actule::ncollide::ncollide_pipeline::world::{CollisionGroups, CollisionWorld2, GeometricQueryType};
+use actule::ncollide::ncollide_pipeline::world::{CollisionWorld2, GeometricQueryType};
 use actule::nalgebra::{Isometry2};
 
 use actule::actule::*;
@@ -14,8 +14,6 @@ pub struct HitWatcher {
 
 impl HitWatcher {
     pub fn new() -> HitWatcher {
-        let mut c_groups = CollisionGroups::new();
-        c_groups.enable_self_interaction();
         HitWatcher {
             collision_world: CollisionWorld2::new(0.02, true),
             query_type: GeometricQueryType::Contacts(0.0),
@@ -32,6 +30,7 @@ impl HitWatcher {
             self.query_type,
             PhantomData::default()
         );
+        self.collision_world.update();
     }
 
     pub fn update_hitbox(&mut self, id: Id, isometry: Isometry2<Coord>) {
@@ -46,7 +45,7 @@ impl HitWatcher {
         self.collision_world.update();
         for contact in self.collision_world.contacts() {
             let mut entity = world.take_entity_by_id(contact.0.uid).expect("Collison object was not an entity");
-            entity.get_mut_physics_obj().expect("Entity had no physics object").collision(
+            entity.get_mut_physics_obj().expect("Entity had no physics object").collision(contact.1.uid,
                 world.get_mut_entity_by_id(contact.1.uid).expect("Collision object was not an entity").get_mut_physics_obj().expect("Entity had no physics object"), contact.2
             );
             world.give_entity(entity);
