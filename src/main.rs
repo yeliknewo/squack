@@ -48,14 +48,14 @@ fn main() {
         let mut world = game.get_mut_world();
 
         add_watcher(&mut manager, &mut world);
-        
+
         let mut i = 0;
         while i <= 800 {
-            add_ground_at(&mut manager, &mut world, Vector2::new(i as f64, 400.0));
+            add_ground_at(&mut manager, &mut world, Vector2::new(i as f64, 400.0), &mut window.factory);
             i += 100;
         }
 
-        add_player_at_position(&mut manager, &mut world, Vector2::new(50.0, 50.0));
+        //add_player_at_position(&mut manager, &mut world, Vector2::new(50.0, 50.0));
     }
 
     game.run(&mut manager, &mut window);

@@ -44,7 +44,8 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
         )
         .with_renderable(
             Renderable::new(
-                0,
+                0
+                /*
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(width, 0.0),
@@ -52,6 +53,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                     Vector2::new(0.0, height)
                 ),
                 [1.0, 1.0, 0.0, 1.0]
+                */
             )
         )
         .with_player(

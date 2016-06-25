@@ -2,14 +2,15 @@
 name = "squack"
 version = "0.5.0"
 dependencies = [
- "actule 0.4.10 (git+https://github.com/yeliknewo/actule.git)",
+ "actule 0.4.10 (git+https://github.com/yeliknewo/actule.git?branch=image)",
 ]
 
 [[package]]
 name = "actule"
 version = "0.4.10"
-source = "git+https://github.com/yeliknewo/actule.git#060d76f830be3664f70b44432f9bb81bf5800429"
+source = "git+https://github.com/yeliknewo/actule.git?branch=image#9353501c5fa00204b0f3efb4d1e6a57c15fa4322"
 dependencies = [
+ "gfx_device_gl 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "id_alloc 0.4.3 (git+https://github.com/yeliknewo/id_alloc.git)",
  "nalgebra 0.8.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "ncollide 0.9.1 (registry+https://github.com/rust-lang/crates.io-index)",
