@@ -7,7 +7,7 @@ use utils::names::*;
 use utils::collision_groups::*;
 use components::*;
 
-use actule::gfx_device_gl::Factory;
+//use actule::gfx_device_gl::Factory;
 
 //note: you can get a Factory by using the window.factory field
 
@@ -57,14 +57,14 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                 [1.0, 0.0, 0.0, 1.0]
                 */
                 //MyImage::new() throws -> thread '<main>' panicked at 'assertion failed: index < self.len()' if width, height are too high
-            ).with_image(MyImage::new(factory, dirt_img, 15, 15)).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, dirt_img, 5, 5, [position.x as u32, position.y as u32, 100, 50])).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(100.0, 0.0),
                     Vector2::new(100.0, 50.0),
                     Vector2::new(0.0, 50.0)
                 ),
-                [1.0, 0.0, 0.0, 1.0]
+                [0.0, 0.0, 0.0, 1.0]
             ))
         );
 

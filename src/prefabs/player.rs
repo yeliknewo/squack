@@ -7,12 +7,14 @@ use utils::names::*;
 use utils::collision_groups::*;
 use components::*;
 
-pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>) -> SEntity {
+pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
     let width = 100.0;
     let height = 50.0;
     let mass = 1.0;
 
     let id = manager.alloc().expect("Manager ran out of ids");
+
+    let player_img = include_bytes!("../assets/knight1.png");
 
     let entity = SEntity::new(id, 0)
         .with_transform(
@@ -54,7 +56,15 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                 ),
                 [1.0, 1.0, 0.0, 1.0]
                 */
-            )
+            ).with_image(MyImage::new(factory, player_img, 15, 15, [position.x as u32, position.y as u32, 100, 50])).with_shape(Shape::new(
+                vec!(
+                    Vector2::new(0.0, 0.0),
+                    Vector2::new(width, 0.0),
+                    Vector2::new(width, height),
+                    Vector2::new(0.0, height)
+                ),
+                [1.0, 0.0, 0.0, 1.0]
+            ))
         )
         .with_player(
             Player::new()
@@ -65,12 +75,12 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
     entity
 }
 
-pub fn add_player(manager: &mut SNode, world: &mut SWorld) {
-    let entity = new_player(manager, world, Vector2::new(0.0, 0.0));
+pub fn add_player(manager: &mut SNode, world: &mut SWorld, factory: &mut Factory) {
+    let entity = new_player(manager, world, Vector2::new(0.0, 0.0), factory);
     world.add_entity(entity);
 }
 
-pub fn add_player_at_position(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>) {
-    let entity = new_player(manager, world, position);
+pub fn add_player_at_position(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) {
+    let entity = new_player(manager, world, position, factory);
     world.add_entity(entity);
 }

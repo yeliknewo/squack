@@ -55,7 +55,7 @@ fn main() {
             i += 100;
         }
 
-        //add_player_at_position(&mut manager, &mut world, Vector2::new(50.0, 50.0));
+        add_player_at_position(&mut manager, &mut world, Vector2::new(50.0, 50.0), &mut window.factory);
     }
 
     game.run(&mut manager, &mut window);
