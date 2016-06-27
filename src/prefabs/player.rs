@@ -14,7 +14,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
 
     let id = manager.alloc().expect("Manager ran out of ids");
 
-    let player_img = include_bytes!("../assets/knight1.png");
+    let player_path = "assets/knight1.png";
 
     let entity = SEntity::new(id, 0)
         .with_transform(
@@ -56,7 +56,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                 ),
                 [1.0, 1.0, 0.0, 1.0]
                 */
-            ).with_image(MyImage::new(factory, player_img, 15, 15, [position.x as u32, position.y as u32, 100, 50])).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, player_path, [position.x, position.y, width, height])).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(width, 0.0),

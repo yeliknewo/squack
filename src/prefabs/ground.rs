@@ -14,7 +14,7 @@ use components::*;
 pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
     let id = manager.alloc().expect("Manager ran out of ids");
 
-    let dirt_img = include_bytes!("../assets/Dirt.png");
+    let dirt_path = "assets/Dirt.png";
 
     let entity = SEntity::new(id, 2)
         .with_transform(
@@ -57,7 +57,7 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                 [1.0, 0.0, 0.0, 1.0]
                 */
                 //MyImage::new() throws -> thread '<main>' panicked at 'assertion failed: index < self.len()' if width, height are too high
-            ).with_image(MyImage::new(factory, dirt_img, 5, 5, [position.x as u32, position.y as u32, 100, 50])).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, dirt_path, [position.x, position.y, 100.0, 50.0])).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(100.0, 0.0),
