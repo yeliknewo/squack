@@ -3,6 +3,8 @@
 #[macro_use]
 extern crate actule;
 
+extern crate find_folder;
+
 use actule::piston_window::*;
 use actule::id_alloc::*;
 use actule::actule::*;

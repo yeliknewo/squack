@@ -90,37 +90,6 @@ impl SquackEntity {
     pub fn give_transform(&mut self, transform: Box<Transform>) {
         self.set_option_transform(Some(transform));
     }
-
-    // #[inline]
-    // pub fn player_pos_update(&mut self) {
-    //     let mut obj = self.take_physics_obj().expect("physics_obj was none");
-    //
-    //     let velocity = obj.clone_velocity();
-    //
-    //     let mut x: f64 = 0.0;
-    //     let mut y: f64 = 0.0;
-    //
-    //     let player = self.take_player().unwrap();
-    //
-    //     // ""== true" is omitted cus unnecessary
-    //     if player.get_up() {
-    //         y += 5.0;
-    //     }
-    //     if player.get_down() {
-    //         y -= 5.0;
-    //     }
-    //     if player.get_left() {
-    //         x += 5.0;
-    //     }
-    //     if player.get_right() {
-    //         x -= 5.0;
-    //     }
-    //
-    //     self.give_player(player);
-    //     let final_velocity = velocity - Vector2::new(x, y);
-    //     obj.set_velocity(final_velocity);
-    //     self.give_physics_obj(obj);
-    // }
 }
 
 impl Entity<Id, SquackEntity> for SquackEntity {

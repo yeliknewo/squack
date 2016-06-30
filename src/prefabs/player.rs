@@ -7,14 +7,16 @@ use utils::names::*;
 use utils::collision_groups::*;
 use components::*;
 
+use find_folder;
+
 pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
     let width = 100.0;
-    let height = 50.0;
-    let mass = 1.0;
+    let height = 100.0;
+    let mass = 0.1;
 
     let id = manager.alloc().expect("Manager ran out of ids");
 
-    let player_path = "assets/knight1.png";
+    let assets = find_folder::Search::ParentsThenKids(3, 3).for_folder("assets").expect("assets folder not found");
 
     let entity = SEntity::new(id, 0)
         .with_transform(
@@ -56,14 +58,14 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                 ),
                 [1.0, 1.0, 0.0, 1.0]
                 */
-            ).with_image(MyImage::new(factory, player_path, [position.x, position.y, width, height])).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, assets.join("knight1.png").as_path())).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(width, 0.0),
                     Vector2::new(width, height),
                     Vector2::new(0.0, height)
                 ),
-                [1.0, 0.0, 0.0, 1.0]
+                [1.0, 0.0, 0.0, 0.2]
             ))
         )
         .with_player(

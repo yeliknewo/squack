@@ -5,3 +5,4 @@ authors = ["Kiley Owen <yelikdev@gmail.com>"]
 
 [dependencies]
 actule = {git = "https://github.com/yeliknewo/actule.git", branch = "image"}
+find_folder = "0.3.0"

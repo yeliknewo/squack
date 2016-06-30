@@ -7,6 +7,7 @@ use utils::names::*;
 use utils::collision_groups::*;
 use components::*;
 
+use find_folder;
 //use actule::gfx_device_gl::Factory;
 
 //note: you can get a Factory by using the window.factory field
@@ -14,7 +15,7 @@ use components::*;
 pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
     let id = manager.alloc().expect("Manager ran out of ids");
 
-    let dirt_path = "assets/Dirt.png";
+    let assets = find_folder::Search::ParentsThenKids(3, 3).for_folder("assets").expect("assets folder not found");
 
     let entity = SEntity::new(id, 2)
         .with_transform(
@@ -56,15 +57,14 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                 ),
                 [1.0, 0.0, 0.0, 1.0]
                 */
-                //MyImage::new() throws -> thread '<main>' panicked at 'assertion failed: index < self.len()' if width, height are too high
-            ).with_image(MyImage::new(factory, dirt_path, [position.x, position.y, 100.0, 50.0])).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, assets.join("Dirt.png").as_path())).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(100.0, 0.0),
                     Vector2::new(100.0, 50.0),
                     Vector2::new(0.0, 50.0)
                 ),
-                [0.0, 0.0, 0.0, 1.0]
+                [0.0, 1.0, 0.0, 0.0]
             ))
         );
 
