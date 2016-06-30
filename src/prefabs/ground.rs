@@ -57,14 +57,14 @@ pub fn new_ground_at(manager: &mut SNode, world: &mut SWorld, position: Vector2<
                 ),
                 [1.0, 0.0, 0.0, 1.0]
                 */
-            ).with_image(MyImage::new(factory, assets.join("Dirt.png").as_path())).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, assets.join("Dirt.png").as_path(), [0.0, 0.0, 100.0, 50.0])).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(100.0, 0.0),
                     Vector2::new(100.0, 50.0),
                     Vector2::new(0.0, 50.0)
                 ),
-                [0.0, 1.0, 0.0, 0.0]
+                [0.0, 1.0, 0.0, 0.2]
             ))
         );
 

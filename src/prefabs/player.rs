@@ -8,10 +8,11 @@ use utils::collision_groups::*;
 use components::*;
 
 use find_folder;
+use std::path::PathBuf;
 
 pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
-    let width = 100.0;
-    let height = 100.0;
+    let width = 50.0;
+    let height = 50.0;
     let mass = 0.1;
 
     let id = manager.alloc().expect("Manager ran out of ids");
@@ -58,7 +59,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                 ),
                 [1.0, 1.0, 0.0, 1.0]
                 */
-            ).with_image(MyImage::new(factory, assets.join("knight1.png").as_path())).with_shape(Shape::new(
+            ).with_image(MyImage::new(factory, assets.join("knight1.png").as_path(), [0.0, 0.0, width, height])).with_shape(Shape::new(
                 vec!(
                     Vector2::new(0.0, 0.0),
                     Vector2::new(width, 0.0),
