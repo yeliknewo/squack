@@ -8,7 +8,7 @@ use utils::collision_groups::*;
 use components::*;
 
 use find_folder;
-use std::path::PathBuf;
+
 
 pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coord>, factory: &mut Factory) -> SEntity {
     let width = 50.0;
@@ -66,7 +66,7 @@ pub fn new_player(manager: &mut SNode, world: &mut SWorld, position: Vector2<Coo
                     Vector2::new(width, height),
                     Vector2::new(0.0, height)
                 ),
-                [1.0, 0.0, 0.0, 0.2]
+                [0.0, 0.0, 0.0, 0.0] //makes the shape invisible
             ))
         )
         .with_player(

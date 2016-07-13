@@ -129,7 +129,7 @@ impl Entity<Id, SquackEntity> for SquackEntity {
         }
         if self.player.is_some() && self.physics_obj.is_some() {
             let mut physics_obj = self.take_physics_obj().expect("Physics Obj is none");
-            self.get_mut_player().expect("Player was none").tick(minput, &mut physics_obj);
+            self.get_mut_player().expect("Player was none").tick(minput, &mut physics_obj, dt);
             self.give_physics_obj(physics_obj);
         }
         if self.transform.is_some() {

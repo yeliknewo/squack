@@ -52,7 +52,7 @@ fn main() {
         add_watcher(&mut manager, &mut world);
 
         let mut i = 0;
-        while i <= 800 {
+        while i <= 2000 {
             add_ground_at(&mut manager, &mut world, Vector2::new(i as f64, 400.0), &mut window.factory);
             i += 100;
         }

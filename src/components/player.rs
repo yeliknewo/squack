@@ -3,94 +3,54 @@ use actule::piston_window::*;
 
 use components::*;
 
+const JUMP_WAIT: f64 = 1.0;
+
 #[derive(Debug)]
 pub struct Player {
-    // left: bool,
-    // right: bool,
-    // up: bool,
-    // down: bool,
+    can_jump: bool,
+    jump_timer: f64
 }
 
 impl Player {
     pub fn new() -> Player {
         Player {
-            // left: false,
-            // right: false,
-            // up: false,
-            // down: false,
+            can_jump: true,
+            jump_timer: 0.0,
         }
     }
 
-    // fn set_left(&mut self, state: bool) {
-    //     self.left = state;
-    // }
-    //
-    // fn set_right(&mut self, state: bool) {
-    //     self.right = state;
-    // }
-    //
-    // fn set_up(&mut self, state: bool) {
-    //     self.up = state;
-    // }
-    //
-    // fn set_down(&mut self, state: bool) {
-    //     self.down = state;
-    // }
-    //
-    // pub fn get_left(&self) -> bool {
-    //     self.left
-    // }
-    //
-    // pub fn get_right(&self) -> bool {
-    //     self.right
-    // }
-    //
-    // pub fn get_up(&self) -> bool {
-    //     self.up
-    // }
-    //
-    // pub fn get_down(&self) -> bool {
-    //     self.down
-    // }
+    pub fn tick(&mut self, minput: &Minput, physics_obj: &mut Box<PhysicsObj>, dt: f64) {
 
-    pub fn tick(&mut self, minput: &Minput, physics_obj: &mut Box<PhysicsObj>) {
-        // println!("{:?}", self);
-
-        // match minput.get_key(Key::W) {
-        //     KeyState::Pressed => self.set_up(true),
-        //     KeyState::Released => self.set_up(false),
-        // }
-        //
-        // match minput.get_key(Key::A) {
-        //     KeyState::Pressed => self.set_left(true),
-        //     KeyState::Released => self.set_left(false),
-        // }
-        //
-        // match minput.get_key(Key::S) {
-        //     KeyState::Pressed => self.set_down(true),
-        //     KeyState::Released => self.set_down(false),
-        // }
-        //
-        // match minput.get_key(Key::D) {
-        //     KeyState::Pressed => self.set_right(true),
-        //     KeyState::Released => self.set_right(false),
-        // }
+        self.jump_timer += dt;
 
         let mut velocity = physics_obj.clone_velocity();
 
-        if minput.get_key(Key::D) == KeyState::Pressed && velocity.x <= 20.0 {
-            velocity.x += 20.0;
+        if minput.get_key(Key::D) == KeyState::Pressed {
+            velocity.x = 200.0;
         }
-        if minput.get_key(Key::A) == KeyState::Pressed && velocity.x >= -20.0 {
-            velocity.x -= 20.0;
+        else if minput.get_key(Key::A) == KeyState::Pressed {
+            velocity.x = -200.0;
         }
-        if minput.get_key(Key::S) == KeyState::Pressed {
-            velocity.y += 2.0;
+        else {
+            velocity.x = 0.0;
+        }
+
+
+        if minput.get_key(Key::S) == KeyState::Pressed && velocity.y <= 100.0 {
+            velocity.y = 50.0;
         }
         if minput.get_key(Key::W) == KeyState::Pressed {
-            velocity.y -= 5.0;
+            if self.jump_timer >= JUMP_WAIT {
+                self.can_jump = true;
+                self.jump_timer = 0.0;
+            }
+
+            if self.can_jump {
+                velocity.y = -400.0;
+                self.can_jump = false;
+            }
         }
-        velocity.y += 3.0;
+        velocity.y += 10.0;
 
         physics_obj.set_velocity(velocity);
 
